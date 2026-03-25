@@ -246,7 +246,7 @@ Private Function GetGanttStartColumn(ws As Worksheet) As Long
         ' Fallback: scan row for GANTT_START marker first
         fullLastCol = ws.Cells(DATA_START_ROW, ws.Columns.Count).End(xlToLeft).Column
         
-        ' Check if GANTT_START exists — use the column just before it
+        ' Check if GANTT_START exists -- use the column just before it
         For j = 1 To fullLastCol + GANTT_WEEKS + 20
             If j > ws.Columns.Count Then Exit For
             If CStr(ws.Cells(6, j).Value) = "GANTT_START" Then
@@ -671,7 +671,7 @@ Private Sub RenderGanttStructure(ws As Worksheet, ganttStart As Date, phaseDict 
     For Each rdKey In ourDateRedirect.Keys
         ourKey = ourDateRedirect(rdKey)
         If wsHeaderMap.exists(ourKey) Then
-            ' Our Date column found — redirect TIS header lookup to Our Date column position
+            ' Our Date column found -- redirect TIS header lookup to Our Date column position
             wsHeaderMap(CStr(rdKey)) = wsHeaderMap(ourKey)
         End If
     Next rdKey
@@ -811,7 +811,7 @@ Private Sub WriteGanttFormulas(ws As Worksheet, ganttStartCol As Long, lastDataR
     If bod2Col > 0 Then bod2Letter = "$" & ColLetter(bod2Col)
     
     ' Phases that take priority OVER blackout dates
-    ' (pre-fac, SDD, Demo, Decon, MRCL — these can't be blacked out)
+    ' (pre-fac, SDD, Demo, Decon, MRCL -- these can't be blacked out)
     bodOverridePhases = """PF"",""SDD"",""DC"",""DM"",""MRCL"""
 
     ' Sort phases by textPriority descending
@@ -1155,7 +1155,7 @@ Private Sub ApplyGanttConditionalFormatting(ws As Worksheet, ganttStartCol As Lo
 End Sub
 
 '====================================================================
-' QUARTER HEADERS (row 12 — directly above month/date headers)
+' QUARTER HEADERS (row 12 -- directly above month/date headers)
 '====================================================================
 
 Private Sub WriteQuarterHeaders(ws As Worksheet, startCol As Long, ganttStart As Date)
@@ -1343,7 +1343,7 @@ Public Sub ApplyTodayMarker(ws As Worksheet, ganttStartCol As Long, lastDataRow 
 End Sub
 
 '====================================================================
-' COLOR LEGEND (row 14 — directly above date headers at row 15)
+' COLOR LEGEND (row 14 -- directly above date headers at row 15)
 '====================================================================
 
 Private Sub WriteColorLegend(ws As Worksheet, ganttStartCol As Long, phaseDict As Object)

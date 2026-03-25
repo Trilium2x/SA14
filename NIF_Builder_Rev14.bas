@@ -975,7 +975,7 @@ Private Sub ApplyStaffedCF(ws As Worksheet, sc As Long, fd As Long, ld As Long)
 End Sub
 
 '====================================================================
-' HC NEED SECTIONS — MAIN ORCHESTRATOR
+' HC NEED SECTIONS -- MAIN ORCHESTRATOR
 '====================================================================
 
 Private Sub AddHCNeedSections(ws As Worksheet, gec As Long, nsc As Long, _

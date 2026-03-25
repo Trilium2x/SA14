@@ -60,9 +60,9 @@ Public Const TIS_SHEET_REMOVED As String = "Removed Systems"
 Public Const TIS_SHEET_DASHBOARD As String = "Dashboard"
 
 '====================================================================
-' REV14 COLUMN HEADERS — Committed milestone date columns (user-owned)
+' REV14 COLUMN HEADERS -- Committed milestone date columns (user-owned)
 ' These are the exact header strings written to the Working Sheet.
-' No "Our" prefix — these ARE the dates. TIS dates are the reference feed.
+' No "Our" prefix -- these ARE the dates. TIS dates are the reference feed.
 '====================================================================
 Public Const TIS_COL_OUR_SET    As String = "Set"
 Public Const TIS_COL_OUR_SL1    As String = "SL1"
@@ -91,8 +91,8 @@ Public Const TIS_SRC_MRCLS      As String = "MRCL Start"
 Public Const TIS_SRC_MRCLF      As String = "MRCL Finish"
 
 ' Fill/border colors for change tracking
-Public Const CLR_CHANGE_FILL    As Long = 42495   ' RGB(255, 165, 0) Orange — TIS field changed
-Public Const CLR_NEW_DATE_BORDER As Long = 16711680 ' RGB(0, 0, 255) Blue — auto-populated Our Date
+Public Const CLR_CHANGE_FILL    As Long = 42495   ' RGB(255, 165, 0) Orange -- TIS field changed
+Public Const CLR_NEW_DATE_BORDER As Long = 16711680 ' RGB(0, 0, 255) Blue -- auto-populated Our Date
 
 ' Health / Status conditional formatting colors
 Public Const STATUS_ONTRACK_FG  As Long = 1409045   ' RGB(21, 128, 61)
@@ -102,7 +102,7 @@ Public Const STATUS_ATRISK_BG   As Long = 13107198  ' RGB(254, 243, 199)
 Public Const STATUS_BEHIND_FG   As Long = 1842617   ' RGB(185, 28, 28)
 Public Const STATUS_BEHIND_BG   As Long = 14869246  ' RGB(254, 226, 226)
 
-' Slate scale — neutral grays for text, borders, backgrounds
+' Slate scale -- neutral grays for text, borders, backgrounds
 Public Const SLATE_50  As Long = 16579320   ' RGB(248, 250, 252) Near-white
 Public Const SLATE_100 As Long = 16381425   ' RGB(241, 245, 249) Frost
 Public Const SLATE_200 As Long = 15787746   ' RGB(226, 232, 240) Light border
@@ -112,15 +112,15 @@ Public Const SLATE_700 As Long = 5587251    ' RGB(51, 65, 85)    Secondary text
 Public Const SLATE_900 As Long = 3875102    ' RGB(30, 41, 59)    Primary text
 
 ' Zone header colors (background/foreground pairs for Working Sheet header zones)
-Public Const ZONE_IDENTITY_BG   As Long = 7029760   ' RGB(0, 56, 107)    Navy — identity columns
+Public Const ZONE_IDENTITY_BG   As Long = 7029760   ' RGB(0, 56, 107)    Navy -- identity columns
 Public Const ZONE_IDENTITY_FG   As Long = 16777215  ' RGB(255, 255, 255) White text
-Public Const ZONE_OUR_BG        As Long = 2241804    ' RGB(12, 51, 34)    Deep green — Our Dates zone
+Public Const ZONE_OUR_BG        As Long = 2241804    ' RGB(12, 51, 34)    Deep green -- Our Dates zone
 Public Const ZONE_OUR_FG        As Long = 12706467   ' RGB(163, 228, 193) Light green text
-Public Const ZONE_TIS_BG        As Long = 4992527    ' RGB(15, 46, 76)    Deep blue — TIS Dates zone
+Public Const ZONE_TIS_BG        As Long = 4992527    ' RGB(15, 46, 76)    Deep blue -- TIS Dates zone
 Public Const ZONE_TIS_FG        As Long = 16045237   ' RGB(181, 212, 244) Light blue text
-Public Const ZONE_USER_BG       As Long = 5930035    ' RGB(51, 122, 90)   Deep green — user fields
+Public Const ZONE_USER_BG       As Long = 5930035    ' RGB(51, 122, 90)   Deep green -- user fields
 Public Const ZONE_USER_FG       As Long = 16777215  ' RGB(255, 255, 255) White text
-Public Const ZONE_CALC_BG       As Long = 4176516    ' RGB(132, 172, 63)  Deep amber — calculated
+Public Const ZONE_CALC_BG       As Long = 4176516    ' RGB(132, 172, 63)  Deep amber -- calculated
 Public Const ZONE_CALC_FG       As Long = 16777215  ' RGB(255, 255, 255) White text
 
 '====================================================================

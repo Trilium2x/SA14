@@ -1129,7 +1129,7 @@ Private Sub CreateHCLegend(ws As Worksheet, nifStartCol As Long)
     End With
     col = col + 1
 
-    ' HC intensity cells (1-5+) — cool-to-warm spectrum
+    ' HC intensity cells (1-5+) -- cool-to-warm spectrum
     greenColors = Array(RGB(25, 60, 120), RGB(15, 95, 90), _
                         RGB(20, 110, 40), RGB(140, 100, 10), RGB(150, 45, 20))
     greenLabels = Array("1", "2", "3", "4", "5+")
@@ -1149,7 +1149,7 @@ Private Sub CreateHCLegend(ws As Worksheet, nifStartCol As Long)
         col = col + 1
     Next idx
 
-    ' Gap (magenta) cell — dark theme
+    ' Gap (magenta) cell -- dark theme
     With ws.Cells(HC_LEGEND_ROW, col)
         .Value = "Gap"
         .Interior.Color = RGB(120, 20, 80)

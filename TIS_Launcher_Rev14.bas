@@ -68,7 +68,7 @@ Public Sub DeactivateWhatIf()
 End Sub
 
 Public Sub ToggleWhatIf()
-    ' Check if WhatIf backup exists — if yes, we're in WhatIf mode, so deactivate
+    ' Check if WhatIf backup exists -- if yes, we're in WhatIf mode, so deactivate
     Dim wsBak As Worksheet
     On Error Resume Next
     Set wsBak = ThisWorkbook.Worksheets("WhatIf_Backup")
@@ -222,7 +222,7 @@ End Sub
 '====================================================================
 ' STRIP ALL MODULES
 ' Removes all TIS Tracker VBA modules except TIS_Launcher (self).
-' Uses pattern-based matching — automatically handles any Rev number
+' Uses pattern-based matching -- automatically handles any Rev number
 ' (Rev9, Rev10, Rev11, Rev12, ...) without a hardcoded list.
 ' Safe to run before LoadAllModules for a clean re-import.
 '====================================================================
@@ -322,7 +322,7 @@ End Sub
 ' Returns True if the given VBA module name belongs to the TIS Tracker.
 ' Matches both stable names (e.g., "WorkfileBuilder") and any
 ' Rev-suffixed variant (e.g., "WorkfileBuilder_Rev11", "WorkfileBuilder_Rev9").
-' TIS_Launcher is intentionally included — old Rev-named Launcher
+' TIS_Launcher is intentionally included -- old Rev-named Launcher
 ' modules are stripped, while the running stable-named module is
 ' protected by the self-skip check in StripAllModules before this runs.
 '====================================================================

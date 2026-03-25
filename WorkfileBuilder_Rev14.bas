@@ -5,7 +5,7 @@ Attribute VB_Name = "WorkfileBuilder"
 ' Rev14 changes:
 '   - Two-path architecture: FRESH BUILD (no Working Sheet) vs
 '     UPDATE IN PLACE (existing Rev14 schema detected)
-'   - UpdateWorkingSheet: fast in-place update — compares TIS against
+'   - UpdateWorkingSheet: fast in-place update -- compares TIS against
 '     existing Working Sheet, updates changed cells (orange fill +
 '     comment), cancels removed systems, reintroduces returning
 '     systems, appends new systems with Our Dates from TIS
@@ -38,12 +38,12 @@ Attribute VB_Name = "WorkfileBuilder"
 '
 ' Rev8.1 changes:
 '   1. Dashboard slicer fix: Worksheet_Calculate event handler installed
-'      automatically — forces dashboard recalc when slicers/filters change
+'      automatically -- forces dashboard recalc when slicers/filters change
 '   2. Application.Calculation forced to xlAutomatic at end (prevents
 '      stuck Manual mode from prior crashes)
 '   3. OFFSET pattern updated to BKM: explicit height=1, width=1 params
 '   4. Removed unused helper columns (h_New, h_Reused, h_Demo, h_Visible)
-'      — h_Active/h_ActiveDemo removed; active counts use inline SUMPRODUCT
+'      -- h_Active/h_ActiveDemo removed; active counts use inline SUMPRODUCT
 '   5. Color palette centralized as module-level constants (17 colors)
 '   6. Progress bar via Application.StatusBar during build
 '
@@ -52,7 +52,7 @@ Attribute VB_Name = "WorkfileBuilder"
 '      (NIF assignments, HC values) migrates to versioned sheets
 '   2. Active count bug fix: Reused systems exclude pre-fac events
 '      (uses Set Start for lifecycle start, not pre-fac phases)
-'   3. Added "Completed" column (TRUE/FALSE) — merged into Status column in Rev14
+'   3. Added "Completed" column (TRUE/FALSE) -- merged into Status column in Rev14
 '   4. Added Event Type slicer alongside Group slicer
 '
 ' Rev7 features preserved:
@@ -210,7 +210,7 @@ Public Sub CreateWorkFile()
         End If
     End If
 
-    ' === FULL BUILD PATH (always rebuild — TIS update mechanism will be added later) ===
+    ' === FULL BUILD PATH (always rebuild -- TIS update mechanism will be added later) ===
     If True Then
         If Not oldSheet Is Nothing Then
             Application.ScreenUpdating = True
@@ -396,7 +396,7 @@ End Sub
 ' Compares TIS data against existing rows, updates changed TIS fields,
 ' cancels removed systems, reintroduces returning systems, appends
 ' new systems with Our Dates auto-populated from TIS.
-' Does NOT clear/rebuild the sheet structure — only touches data cells.
+' Does NOT clear/rebuild the sheet structure -- only touches data cells.
 ' Rebuilds Gantt + NIF at the end (they clear their own sections).
 '====================================================================
 
@@ -509,7 +509,7 @@ Private Sub UpdateWorkingSheet(ws As Worksheet)
     If wsHeaderMap.exists(LCase(HEADER_EVENT_TYPE)) Then wsETCol = wsHeaderMap(LCase(HEADER_EVENT_TYPE))
     If wsHeaderMap.exists(LCase(TIS_COL_STATUS)) Then wsStatusCol = wsHeaderMap(LCase(TIS_COL_STATUS))
 
-    ' Build excludeFromCompare set (key fields and published — not compared for changes)
+    ' Build excludeFromCompare set (key fields and published -- not compared for changes)
     Dim excludeFromCompare As Object
     Set excludeFromCompare = CreateObject("Scripting.Dictionary")
     excludeFromCompare("site") = True
@@ -1399,7 +1399,7 @@ Private Sub CreateWorkingSheet(hasCEIDsSheet As Boolean, hasMilestonesSheet As B
         Dim chkHdr As Long
         chkHdr = TISCommon.FindHeaderRow(oldSheet)
         If chkHdr > 0 Then
-            ' Look for "Conv.S" — unique to Our Dates (never in raw TIS)
+            ' Look for "Conv.S" -- unique to Our Dates (never in raw TIS)
             If TISCommon.FindHeaderCol(oldSheet, chkHdr, TIS_COL_OUR_CONVS, _
                     oldSheet.Cells(chkHdr, oldSheet.Columns.Count).End(xlToLeft).Column) > 0 Then
                 oldHasOurDates = True
@@ -1445,7 +1445,7 @@ Private Sub CreateWorkingSheet(hasCEIDsSheet As Boolean, hasMilestonesSheet As B
     Application.StatusBar = "Building Working Sheet... 88% - Sorting by status and start date"
     SortWorkingSheetByStatus newSheet, outputColMap, DATA_START_ROW
 
-    ' Auto-fit visible data columns only (not the entire sheet — expensive at 100+ cols)
+    ' Auto-fit visible data columns only (not the entire sheet -- expensive at 100+ cols)
     stepDesc = "AutoFit and FreezePanes"
     Application.StatusBar = "Building Working Sheet... 90% - Final layout"
     Dim autoFitLastCol As Long
@@ -1464,7 +1464,7 @@ Private Sub CreateWorkingSheet(hasCEIDsSheet As Boolean, hasMilestonesSheet As B
     ActiveWindow.FreezePanes = True
     newSheet.Cells(1, 1).Select
 
-    ' Note: full recalc deferred to Cleanup block (Application.Calculate) — no per-sheet Calculate needed
+    ' Note: full recalc deferred to Cleanup block (Application.Calculate) -- no per-sheet Calculate needed
     
     ' Install event handler for slicer/filter responsiveness
     stepDesc = "InstallSheetEvents"
@@ -1490,7 +1490,7 @@ Private Sub CreateWorkingSheet(hasCEIDsSheet As Boolean, hasMilestonesSheet As B
         NIF_Builder.BuildNIF silent:=True, targetSheet:=newSheet
     End If
     
-    ' === ADD SLICERS (last step — sheet must be fully built and active) ===
+    ' === ADD SLICERS (last step -- sheet must be fully built and active) ===
     stepDesc = "AddSlicers"
     Application.StatusBar = "Building Working Sheet... 99% - Adding slicers"
     
@@ -1564,7 +1564,7 @@ Private Sub ParseMilestoneDefinitions(wsDef As Worksheet, ByRef milestoneGroups 
                         milestoneNames(letter) = Trim(CStr(defData(i, 7)))
                     End If
                     ' Column K (11) = Actual Duration exclude
-                    ' Only apply to num=1 (start token) — Column G names this group
+                    ' Only apply to num=1 (start token) -- Column G names this group
                     If num = 1 And lastCol >= 11 Then
                         If UCase(Trim(CStr(defData(i, 11)))) = "X" Then
                             durationExcludes(letter) = True
@@ -1613,7 +1613,7 @@ Private Function ParseExcludeSystems(wsDef As Worksheet) As Collection
 End Function
 
 '====================================================================
-' ADD OUR DATES BLOCK — 9 committed milestone date columns
+' ADD OUR DATES BLOCK -- 9 committed milestone date columns
 ' Inserted after base data, before milestone columns.
 ' New systems get auto-populated from TIS dates (blue border marker).
 '====================================================================
@@ -1656,9 +1656,9 @@ Private Sub AddOurDatesBlock(ws As Worksheet, outputColMap As Object, _
 
     ' === Lock-aware Data Validation on Our Date columns ===
     ' When Lock?=TRUE for a row, validation rejects any edit to Our Date cells.
-    ' Zero runtime cost — Excel evaluates only when user presses Enter on a cell.
+    ' Zero runtime cost -- Excel evaluates only when user presses Enter on a cell.
     ' Lock? column will be at currentCol+1 (after Status at currentCol).
-    ' We defer this until after Lock? column is created — see below.
+    ' We defer this until after Lock? column is created -- see below.
 
     ' === Status column ===
     ws.Cells(dataStartRow, currentCol).Value = TIS_COL_STATUS
@@ -1712,7 +1712,7 @@ Private Sub AddOurDatesBlock(ws As Worksheet, outputColMap As Object, _
         Dim lockColLetter As String
         lockColLetter = ColLetter(lockColPos)
         Dim dvFormula As String
-        ' Formula uses first data row reference — Excel adjusts per row automatically
+        ' Formula uses first data row reference -- Excel adjusts per row automatically
         dvFormula = "=NOT($" & lockColLetter & CStr(dataStartRow + 1) & "=TRUE)"
 
         Dim dvi As Long
@@ -1998,7 +1998,7 @@ Private Sub PopulateHealthColumn(ws As Worksheet, outputColMap As Object, _
     ' Match (green): all deviations <= 0 (aligned or ahead of TIS)
     ' Minor (amber): max deviation 1-3 days (small drift)
     ' Gap (red): max deviation > 3 days (needs attention)
-    ' Formula auto-recalculates when user edits an Our Date — no rebuild needed.
+    ' Formula auto-recalculates when user edits an Our Date -- no rebuild needed.
 
     Dim healthCol As Long
     healthCol = 0
@@ -2314,7 +2314,7 @@ Private Sub AddSTDDurationColumns(ws As Worksheet, milestoneGroups As Object, _
     Next idx
     
     If missingMilestones <> "" Then
-        ' Warning already shown in the confirmation dialog — just log it
+        ' Warning already shown in the confirmation dialog -- just log it
         DebugLog "Missing milestones: " & Replace(missingMilestones, vbCrLf, ", ")
     End If
     
@@ -2751,7 +2751,7 @@ Private Sub AddSummaryDashboard(ws As Worksheet, dataStartRow As Long, dataRowCo
     FormatDashboardCard ws, 3, currentCol, 4, currentCol, cardBg, cardBorder
     currentCol = currentCol + 1
     
-    ' Card 4: Demo — no tfFilter (Demo systems use Decon/Demo milestones, not Set Start)
+    ' Card 4: Demo -- no tfFilter (Demo systems use Decon/Demo milestones, not Set Start)
     ws.Cells(3, currentCol).Value = "Demo": ws.Cells(3, currentCol).Font.Size = 8: ws.Cells(3, currentCol).Font.Color = labelColor: ws.Cells(3, currentCol).HorizontalAlignment = xlCenter
     demoCol = currentCol
     If newReusedCol > 0 Then
@@ -2862,7 +2862,7 @@ Private Sub AddSlicers(ws As Worksheet, tbl As ListObject, outputColMap As Objec
     Dim c As Long
     Dim rawH As String
     
-    ' No rename, no cleanup — just use unique timestamps for cache names
+    ' No rename, no cleanup -- just use unique timestamps for cache names
     ' and let Excel auto-name slicer shapes (omit Name param in Slicers.Add)
     
     ' Position slicers right after the last counter card
@@ -2893,7 +2893,7 @@ Private Sub AddSlicers(ws As Worksheet, tbl As ListObject, outputColMap As Objec
         
         If Not sc Is Nothing Then
             On Error Resume Next
-            ' Omit Name parameter — let Excel auto-generate unique name (BKM)
+            ' Omit Name parameter -- let Excel auto-generate unique name (BKM)
             Set sl = sc.Slicers.Add(ws, , , "Group", _
                                      slicerTop, slicerLeft, 550, 65)
             If Err.Number <> 0 Then DebugLog "AddSlicers: Group slicer add FAILED: " & Err.Description & " (#" & Err.Number & ")"
@@ -3560,7 +3560,7 @@ Private Sub ApplyWorkingSheetFormatting(ws As Worksheet, dataStartRow As Long, d
         ApplySectionDivider ws, dataStartRow, lastDataRow, additionalColStart
     End If
     
-    ' Auto-fit data columns only (not entire sheet — expensive at scale)
+    ' Auto-fit data columns only (not entire sheet -- expensive at scale)
     Dim afLastC As Long
     afLastC = ws.Cells(dataStartRow, ws.Columns.Count).End(xlToLeft).Column
     If afLastC > 0 Then ws.Range(ws.Columns(1), ws.Columns(afLastC)).AutoFit
@@ -3911,7 +3911,7 @@ End Function
 
 
 '====================================================================
-' IMPORT USER DATA FROM OLD SHEET (simplified — no Gantt/NIF import)
+' IMPORT USER DATA FROM OLD SHEET (simplified -- no Gantt/NIF import)
 ' Only imports user-entered columns and marks changes.
 ' Gantt and NIF are regenerated fresh by calling their builders.
 '====================================================================
@@ -4157,7 +4157,7 @@ Private Sub ImportUserDataFromOldSheet(oldSheet As Worksheet, newSheet As Worksh
     Next nKey
 
     ' === Batch apply orange fill + comments for changed cells (Fix 2) ===
-    ' 1. Build Union range for orange fill — single Interior.Color call
+    ' 1. Build Union range for orange fill -- single Interior.Color call
     If changedCells.Count > 0 Then
         Dim orangeRange As Range
         Dim ci As Long
@@ -4442,7 +4442,7 @@ End Sub
 '   1. Compute delta = WhatIf date - project start date
 '      (project start = first non-null Our Date, excluding SDD)
 '   2. Back up original Our Date values to a hidden "WhatIf Backup" sheet
-'   3. Shift all Our Dates by delta (except SDD — SDD never shifts)
+'   3. Shift all Our Dates by delta (except SDD -- SDD never shifts)
 '   4. Rebuild Gantt (which reads Our Dates)
 ' Our Dates are temporarily overwritten. DeactivateWhatIfMode restores them.
 '====================================================================
@@ -4453,7 +4453,7 @@ Public Sub ActivateWhatIfMode()
     appSt = SaveAppState()
     SetPerformanceMode
 
-    ' Save viewport position — restored in Cleanup before ScreenUpdating re-enables,
+    ' Save viewport position -- restored in Cleanup before ScreenUpdating re-enables,
     ' preventing the scroll-position jump caused by Sheets.Add + Gantt rebuild.
     Dim savedScrollRow As Long, savedScrollCol As Long
     savedScrollRow = ActiveWindow.ScrollRow
@@ -4469,7 +4469,7 @@ Public Sub ActivateWhatIfMode()
     Set existingBak = ThisWorkbook.Worksheets("WhatIf_Backup")
     On Error GoTo ErrorHandler
     If Not existingBak Is Nothing Then
-        ' Already in WhatIf mode — restore first before re-activating
+        ' Already in WhatIf mode -- restore first before re-activating
         DeactivateWhatIfMode
         Set existingBak = Nothing
     End If
@@ -4498,7 +4498,7 @@ Public Sub ActivateWhatIfMode()
     If colMap.exists(LCase(TIS_COL_WHATIF)) Then whatIfCol = colMap(LCase(TIS_COL_WHATIF))
     If whatIfCol = 0 Then GoTo Cleanup
 
-    ' Our Date column positions (all are shiftable — no SDD in Our Dates)
+    ' Our Date column positions (all are shiftable -- no SDD in Our Dates)
     Dim ourColKeys(0 To 7) As String
     ourColKeys(0) = LCase(TIS_COL_OUR_SET)
     ourColKeys(1) = LCase(TIS_COL_OUR_SL1)
@@ -4537,7 +4537,7 @@ Public Sub ActivateWhatIfMode()
     Set wsBak = ThisWorkbook.Sheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
     wsBak.Name = bakName
     wsBak.Visible = xlSheetVeryHidden
-    ' Restore focus and viewport — Sheets.Add changes ActiveSheet even with ScreenUpdating=False
+    ' Restore focus and viewport -- Sheets.Add changes ActiveSheet even with ScreenUpdating=False
     ws.Activate
     ActiveWindow.ScrollRow = savedScrollRow
     ActiveWindow.ScrollColumn = savedScrollCol
@@ -4613,7 +4613,7 @@ NextWIFRow:
     Next r
 
     If shiftedCount = 0 Then
-        ' No WhatIf dates entered — clean up backup and exit silently
+        ' No WhatIf dates entered -- clean up backup and exit silently
         On Error Resume Next
         Application.DisplayAlerts = False
         wsBak.Delete
@@ -4627,7 +4627,7 @@ NextWIFRow:
         GoTo Cleanup
     End If
 
-    ' Write shifted dates back — ONLY for rows that were actually shifted
+    ' Write shifted dates back -- ONLY for rows that were actually shifted
     ' Use bulk row write: one Range.Value per shifted row (fast, preserves format)
     Dim rowArr(1 To 1, 1 To 1) As Variant
     Dim colCount As Long
@@ -4640,7 +4640,7 @@ NextWIFRow:
         End If
         wifDate = ws.Cells(wsRow, whatIfCol).Value
         If Not IsDate(wifDate) Then GoTo NextWriteRow
-        ' This row was shifted — write the entire row of Our Dates at once
+        ' This row was shifted -- write the entire row of Our Dates at once
         Dim rowData() As Variant
         ReDim rowData(1 To 1, 1 To colCount)
         For mi = 1 To colCount
@@ -4715,7 +4715,7 @@ Public Sub DeactivateWhatIfMode()
     appSt = SaveAppState()
     SetPerformanceMode
 
-    ' Save viewport position — restored in Cleanup before ScreenUpdating re-enables
+    ' Save viewport position -- restored in Cleanup before ScreenUpdating re-enables
     Dim savedScrollRow As Long, savedScrollCol As Long
     savedScrollRow = ActiveWindow.ScrollRow
     savedScrollCol = ActiveWindow.ScrollColumn

@@ -380,7 +380,7 @@ Cleanup:
     Application.StatusBar = False
     Application.DisplayAlerts = True
     RestoreAppState appSt
-    ' Force automatic calculation â€” Dashboard formulas require it
+    ' Force automatic calculation -- Dashboard formulas require it
     ' (RestoreAppState may restore manual mode from user's prior setting)
     Application.Calculation = xlCalculationAutomatic
     Set m_ws = Nothing
@@ -573,7 +573,7 @@ Private Sub CreateOrClearDashboardSheet()
         On Error GoTo 0
     End If
 
-    ' 5) Delete old DashHelper sheet (now safe â€” no refs remain)
+    ' 5) Delete old DashHelper sheet (now safe -- no refs remain)
     If SheetExists(ThisWorkbook, "DashHelper") Then
         Application.DisplayAlerts = False
         On Error Resume Next
@@ -624,7 +624,7 @@ Private Sub CreateOrClearDashboardSheet()
     m_ws.Columns(COL_START).ColumnWidth = 18
 
     ' Light theme base: use Excel's default white background
-    ' Only set font — no blanket Interior.Color (saves formatting 17B cells)
+    ' Only set font -- no blanket Interior.Color (saves formatting 17B cells)
     m_ws.Cells.Font.Name = THEME_FONT
     m_ws.Cells.Font.Color = RGB(30, 41, 59)   ' Slate-900: near-black for readability
 End Sub
@@ -810,7 +810,7 @@ Private Sub BuildKPICards()
     End If
     currentCol = currentCol + 3
 
-    ' Card 4: Demo â€” no hasDateFilter (Demo uses Decon/Demo milestones, matches Working Sheet)
+    ' Card 4: Demo -- no hasDateFilter (Demo uses Decon/Demo milestones, matches Working Sheet)
     If m_nrCol > 0 And m_groupCol > 0 Then
         BuildSingleKPICard currentCol, “Demo”, _
             “=IF(“ & kpiGrpRef & “=””All””,” & _
@@ -1699,7 +1699,7 @@ Private Function WriteHCGroupBlock(curRow As Long, grpName As String, _
     ApplyGapConditionalFormatting r, lastMCol
     r = r + 1
 
-    ' Row 8: Total Need summary (medium blue band — visually distinct from group header)
+    ' Row 8: Total Need summary (medium blue band -- visually distinct from group header)
     Dim totNeedRow As Long: totNeedRow = r
     WriteHCSummaryFormulaRow r, "  " & ChrW(&H25B2) & " Total Need", lastMCol, _
         newNeedRow, reuNeedRow, RGB(239, 83, 80), HC_SUMMARY_NEED
@@ -2482,7 +2482,7 @@ NextMsHeader:
             outArr(outIdx, 11) = ""
         End If
 
-        ' Column 12: MRCLFinish — Our Date MRCL.F, fallback to TIS MRCL Finish
+        ' Column 12: MRCLFinish -- Our Date MRCL.F, fallback to TIS MRCL Finish
         Dim mrclFVal As Variant: mrclFVal = Empty
         If ourMrclFIdx > 0 Then mrclFVal = wsData(ri, ourMrclFIdx)
         If Not IsDate(mrclFVal) Then
@@ -2492,7 +2492,7 @@ NextMsHeader:
             outArr(outIdx, 12) = CDate(mrclFVal)
         End If
 
-        ' Column 13: InstallQtr — YYYY-Q# from MRCLFinish (for New/Reused);
+        ' Column 13: InstallQtr -- YYYY-Q# from MRCLFinish (for New/Reused);
         '   for Demo, use earliest Decon Start date, fallback to MRCLFinish
         Dim ibDate As Variant: ibDate = Empty
         If LCase(nrVal) = "demo" Then
@@ -2510,7 +2510,7 @@ NextMsHeader:
                 CStr(Int((Month(CDate(ibDate)) - 1) / 3) + 1)
         End If
 
-        ' Column 14: InstallDelta — +1 for New/Reused, -1 for Demo
+        ' Column 14: InstallDelta -- +1 for New/Reused, -1 for Demo
         If IsDate(ibDate) Then
             If LCase(nrVal) = "demo" Then
                 outArr(outIdx, 14) = -1
@@ -2521,7 +2521,7 @@ NextMsHeader:
             outArr(outIdx, 14) = 0
         End If
 
-        ' Column 15: HasSetStart — "Yes" if Set Start date exists, Demos always "Yes"
+        ' Column 15: HasSetStart -- "Yes" if Set Start date exists, Demos always "Yes"
         If LCase(nrVal) = "demo" Then
             outArr(outIdx, 15) = "Yes"
         ElseIf setStartIdx > 0 Then
@@ -3619,7 +3619,7 @@ End Sub
 '====================================================================
 
 Private Sub ProtectDashboardSheet()
-    ' Sheet protection removed — no-op
+    ' Sheet protection removed -- no-op
 End Sub
 
 '====================================================================
@@ -4065,7 +4065,7 @@ Public Sub BuildInstallBaseSection(ws As Worksheet, workSheet As Worksheet, _
     startRow = m_nextRow + 1
 
     WriteSectionTitle startRow, "Install Base (Total Tools)", _
-        "Cumulative tool count by quarter — enter baseline in cell below"
+        "Cumulative tool count by quarter -- enter baseline in cell below"
 
     ' --- Validate prerequisites ---
     If helperTable Is Nothing Then
@@ -4266,7 +4266,7 @@ Public Sub BuildInstallBaseSection(ws As Worksheet, workSheet As Worksheet, _
         ws.Cells(tblRow + 8, qCol).Font.Color = RGB(100, 116, 139)
         ws.Cells(tblRow + 8, qCol).HorizontalAlignment = xlCenter
 
-        ' Row 1 (index 0): New per quarter — GETPIVOTDATA
+        ' Row 1 (index 0): New per quarter -- GETPIVOTDATA
         SafeFormulaWrite ws, tblRow, qCol, _
             "=IFERROR(GETPIVOTDATA(""Sum of InstallDelta""," & anchorRef & ",""" & _
             HLP_COL_INSTALLQTR & """,""" & qName & """,""" & HLP_COL_NR & """,""New""),0)"

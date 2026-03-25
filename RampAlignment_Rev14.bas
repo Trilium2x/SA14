@@ -3,12 +3,12 @@ Attribute VB_Name = "RampAlignment"
 ' Ramp Alignment Module - Rev14
 '
 ' Generates per-group ramp alignment reports for Intel customer
-' alignment. Standalone module — no impact on other modules.
+' alignment. Standalone module -- no impact on other modules.
 '
 ' Two-phase UX:
-'   Phase 1: BuildRampAlignment() — creates control panel UI
+'   Phase 1: BuildRampAlignment() -- creates control panel UI
 '            (group dropdown + Generate button) on the active sheet.
-'   Phase 2: RampAlignment_Generate() — reads selected group,
+'   Phase 2: RampAlignment_Generate() -- reads selected group,
 '            creates "Ramp - {GroupName}" report sheet.
 '
 ' Report sections:
@@ -31,8 +31,8 @@ Attribute VB_Name = "RampAlignment"
 '   - New helper: DiscoverScheduleColumns (m_schedCols)
 '
 ' Public Subs:
-'   BuildRampAlignment      — Phase 1 entry point
-'   RampAlignment_Generate  — Phase 2 entry point (called by button)
+'   BuildRampAlignment      -- Phase 1 entry point
+'   RampAlignment_Generate  -- Phase 2 entry point (called by button)
 '====================================================================
 
 Option Explicit
@@ -707,7 +707,7 @@ Private Function ExtractMilestoneName(rawHeader As String, prefix As String) As 
         ExtractMilestoneName = Trim(remainder)
     End If
 
-    ' Also handle "Total" — skip it
+    ' Also handle "Total" -- skip it
     If LCase(ExtractMilestoneName) = "total" Then ExtractMilestoneName = ""
 End Function
 
@@ -801,7 +801,7 @@ Private Function CollectGroups() As Collection
 End Function
 
 '====================================================================
-' SORT ROWS BY COLUMN — simple bubble sort for 2D variant array
+' SORT ROWS BY COLUMN -- simple bubble sort for 2D variant array
 '====================================================================
 
 Private Sub SortRowsByColumn(arr() As Variant, sortCol As Long)
@@ -853,7 +853,7 @@ End Function
 Private Sub WriteReportTitle(rptWs As Worksheet, groupName As String, ByRef curRow As Long)
     With rptWs.Range(rptWs.Cells(curRow, COL_START), rptWs.Cells(curRow, COL_START + 10))
         .Merge
-        .Value = "Ramp Alignment Report  —  " & groupName
+        .Value = "Ramp Alignment Report  --  " & groupName
         .Font.Size = 20
         .Font.Bold = True
         .Font.Color = THEME_WHITE
@@ -1008,7 +1008,7 @@ Private Sub WriteShippingSchedule(rptWs As Worksheet, wsData() As Variant, _
 End Sub
 
 '====================================================================
-' SECTION 4: STANDARD DURATIONS (Rev11 — filtered to Definitions)
+' SECTION 4: STANDARD DURATIONS (Rev11 -- filtered to Definitions)
 ' Only shows milestone columns that correspond to milestones defined
 ' on the Definitions sheet, using GetDefinedMilestoneAbbrevs().
 '====================================================================
@@ -1129,7 +1129,7 @@ Private Sub WriteStandardDurations(rptWs As Worksheet, uniqueCeids As Collection
 End Sub
 
 '====================================================================
-' SECTION 5: CURRENT SCHEDULE (Rev11 — correct date columns)
+' SECTION 5: CURRENT SCHEDULE (Rev11 -- correct date columns)
 ' Shows the correct date column per milestone type:
 '   Set -> Set Start, SL1/SL2/SQ -> Finish dates
 '   Decon/Demo -> Start dates, CV -> Both Start and Finish
@@ -1441,7 +1441,7 @@ Private Sub WriteSignOffCriteria(rptWs As Worksheet, uniqueCeids As Collection, 
         editableCells As Collection, ByRef curRow As Long)
 
     WriteSectionHeader rptWs, curRow, "Sign-off Criteria", _
-        "Per CEID — fill in sign-off criteria for each system"
+        "Per CEID -- fill in sign-off criteria for each system"
 
     If uniqueCeids.Count = 0 Then
         rptWs.Cells(curRow, COL_START).Value = "No CEIDs found."
@@ -1484,7 +1484,7 @@ Private Sub WriteConversionScope(rptWs As Worksheet, wsData() As Variant, _
         sortedRows() As Variant, editableCells As Collection, ByRef curRow As Long)
 
     WriteSectionHeader rptWs, curRow, "Conversion Scope", _
-        "Entity codes with conversion (CV) milestones — fill in scope details"
+        "Entity codes with conversion (CV) milestones -- fill in scope details"
 
     If m_cvStartCol = 0 Or m_cvFinishCol = 0 Then
         rptWs.Cells(curRow, COL_START).Value = "CV Start/Finish columns not found on Working Sheet."

@@ -83,7 +83,7 @@ Public Sub LoadNewTIS()
         loaded = LoadNewTISIntoSheet()
         If Not loaded Then GoTo Cleanup
 
-        ' Load Definitions filters once — used by both TIScompare and Working Sheet update
+        ' Load Definitions filters once -- used by both TIScompare and Working Sheet update
         Dim filters As Object
         Set filters = GetDefinitionsFilters()
 
@@ -1919,7 +1919,7 @@ Private Sub UpdateWorkingSheetFromTIS(Optional filters As Object = Nothing)
     Set tisCounts = CreateObject("Scripting.Dictionary")
     Dim tisKey As String
     For r = 1 To UBound(tisAllData, 1)
-        ' Apply Definitions filters — skip TIS rows that don't match
+        ' Apply Definitions filters -- skip TIS rows that don't match
         If Not RowMatchesFilters(tisAllData, r, tisHeaderMap, filters) Then GoTo NextTisCount
         tisKey = LCase(Trim(CStr(tisAllData(r, tisSiteCol) & ""))) & "|" & _
                  LCase(Trim(CStr(tisAllData(r, tisECCol) & ""))) & "|" & _
@@ -2043,7 +2043,7 @@ NextTisMap:
     Dim newSystemRows As New Collection  ' TIS row numbers for new systems
 
     ' wsAllData and tisAllData were already bulk-read above for key-map construction.
-    ' Reuse those arrays here — no second COM read needed.
+    ' Reuse those arrays here -- no second COM read needed.
 
     ' Collect writes for batch application after loop
     Dim writeQueue As New Collection
@@ -2139,7 +2139,7 @@ NextTisMap:
                 If canAI >= 1 And canAI <= UBound(wsAllData, 1) Then
                     currentStatus = LCase(Trim(CStr(wsAllData(canAI, wsStatusCol) & "")))
                     ' Cancel Active and On Hold rows removed from TIS.
-                    ' Completed and Non IQ rows are left unchanged — they are terminal states.
+                    ' Completed and Non IQ rows are left unchanged -- they are terminal states.
                     If currentStatus = "active" Or currentStatus = "on hold" Then
                         writeQueue.Add Array(cancelRow, wsStatusCol, "Cancelled")
                     End If
@@ -2308,7 +2308,7 @@ NextTisMap:
         ws.Range(ws.Cells(appendRow, 1), ws.Cells(appendRow + newRowCount - 1, wsMaxCol)).Value = newRowArr
 
         ' Apply date format and blue border to Our Date columns for new rows.
-        ' Blue border = CLAUDE.md visual signal: "auto-filled from TIS — please review and confirm."
+        ' Blue border = CLAUDE.md visual signal: "auto-filled from TIS -- please review and confirm."
         Dim pi2 As Long
         For pi2 = LBound(ourTISPairs) To UBound(ourTISPairs)
             If wsHeaderMap.exists(ourTISPairs(pi2)(0)) Then
@@ -2528,7 +2528,7 @@ Private Sub SortWorkingSheet(ws As Worksheet)
     helperCol = wsMaxCol + 1
     ws.Cells(wsHdr, helperCol).Value = "_SortHelper"
 
-    ' Write MIN formula to first data row — range ref so blanks are ignored
+    ' Write MIN formula to first data row -- range ref so blanks are ignored
     Dim firstDataRow As Long
     firstDataRow = wsHdr + 1
     ws.Cells(firstDataRow, helperCol).Formula = "=MIN(" & _
